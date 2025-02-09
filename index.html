@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Fun</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(45deg, #ff6f61, #ffb6c1);
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        /* Bubbles floating around */
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.7);
+            opacity: 0.6;
+            animation: float 6s infinite;
+        }
+
+        /* Animation for bubbles floating */
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-100vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            position: relative;
+        }
+        h1 {
+            color: white;
+            font-size: 2rem;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            transition: transform 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.1);
+        }
+        .yes {
+            background-color: #ff5c8d;
+            color: white;
+        }
+        .no {
+            background-color: #ff7f7f;
+            color: white;
+            position: absolute;
+            transition: transform 0.3s;
+        }
+        .response {
+            display: none;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bubbles will be generated here -->
+    <div id="bubbles"></div>
+
+    <div class="container">
+        <h1>Will you be my Valentine?</h1>
+        <div class="buttons">
+            <button class="btn yes" onclick="response('yes')">Yes</button>
+            <button class="btn no" onmouseover="moveNo()">No</button>
+        </div>
+        <div class="response" id="response"></div>
+    </div>
+
+    <script>
+        // Function to generate bubbles
+        function generateBubbles(numBubbles) {
+            const bubblesContainer = document.getElementById('bubbles');
+
+            for (let i = 0; i < numBubbles; i++) {
+                const bubble = document.createElement('div');
+                bubble.classList.add('bubble');
+
+                // Random size for each bubble
+                const size = Math.random() * 50 + 30; // Sizes between 30px to 80px
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+
+                // Random position
+                const left = Math.random() * 100; // Horizontal position (in percentage)
+                const animationDuration = Math.random() * 3 + 3; // Random duration for animation (between 3s to 6s)
+                const animationDelay = Math.random() * 3; // Random delay before animation starts
+
+                bubble.style.left = `${left}%`;
+                bubble.style.animationDuration = `${animationDuration}s`;
+                bubble.style.animationDelay = `${animationDelay}s`;
+
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
+        // Generate 100 bubbles
+        generateBubbles(100);
+
+        function response(answer) {
+            var responseElement = document.getElementById('response');
+            
+            if (answer === 'yes') {
+                responseElement.style.color = 'green';
+                responseElement.innerHTML = 'Yay! You made my day! 💖';
+            }
+            responseElement.style.display = 'block';
+        }
+
+        function moveNo() {
+            var noButton = document.querySelector('.no');
+            var randomX = Math.random() * 300 - 150; // random x position
+            var randomY = Math.random() * 300 - 150; // random y position
+            
+            noButton.style.transform = `translate(${randomX}px, ${randomY}px)`; // move the "No" button
+        }
+    </script>
+
+</body>
+</html>
